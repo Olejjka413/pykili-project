@@ -2,7 +2,7 @@ import pygame
 import random
 pygame.init()
 FPS = 30
-sc = pygame.display.set_mode((600,400))
+sc = pygame.display.set_mode((600,400),pygame.RESIZABLE)
 clock = pygame.time.Clock()
 while 1:
     for i in pygame.event.get():
