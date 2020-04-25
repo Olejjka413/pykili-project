@@ -162,7 +162,7 @@ if __name__ =='__main__':
         if playersmap.playershoot() == 1:
             playersmap.playershoot()
         if checkwin(playersmap)== 0:
-            print('Вы выйграли')
+            print('Вы выиграли')
             break
         if field.computershoot() == 1:
             field.computershoot()
