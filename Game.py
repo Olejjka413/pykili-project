@@ -16,7 +16,7 @@ ships = {'4': 4, '3': 3, '2': 2, '1': 1}
 AI = False
 
  
- 
+#генерация игрового поля
 def player_field_generator():
     field = []
     t = []
@@ -25,7 +25,7 @@ def player_field_generator():
     field.append(t)
     rad = ['# ']
     for r in range(0, 10):
-        rad.append("~ ")
+        rad.append('~ ')
     # новая строка
     rad.append('# ')
     for k in range(0, 10):
@@ -34,7 +34,7 @@ def player_field_generator():
     field.append(t)
     return field
  
- 
+#размещение кораблей
 def ship_placer(ship, board):
     while True:
         coords = []
@@ -110,6 +110,7 @@ info = StringVar()
 player2_or_AI = StringVar()
 every_button = []
  
+ 
 #создает название игре и кнопам с количеством игроков
 def buttons_labels():
     o = StringVar()
@@ -149,8 +150,10 @@ def comp_shoots(y, x, player_1_field):
 def player_shoot(a, b, field, all_buttons, info, player, field2):
     global AI
     if field[a + 1][b + 1] == 'O ' or field[a + 1][b + 1] == 'X ':
+        #если игрок уже стрелял в клетку
         tkinter.messagebox.showerror('ОЙ!','Уже стрелял сюда!')
     elif field[a + 1][b + 1] == ': ':
+        #если попал
         field[a + 1][b + 1] = 'X '
         all_buttons[a][b].configure(text='X', fg='black', bg='red', activebackground='red')
         score(player)
@@ -161,7 +164,7 @@ def player_shoot(a, b, field, all_buttons, info, player, field2):
             x = random.randint(0, 10)
             y = random.randint(0, 10)
             comp_shoots(y, x, field2)
-     
+#счетчик попаданий для игрока/игроков     
 def score(player):
     global player_1_score
     global player_2_score
@@ -173,7 +176,7 @@ def score(player):
         messager('Игрок 1 победил')
     if player_2_score == 20:
         messager('Игрок 2 победил')
-
+#счетчик попаданий для компьютера
 def comp_scorer():
     global comp_score
     comp_score+=1
@@ -181,7 +184,7 @@ def comp_scorer():
         messager('Вы проиграли')
     
 
-
+#в зависимости от выбора режима игры размещает кнопки
 def side(player, allbuttons):
     col = 4 if player == 'Игрок 1' else 15
     for row in range(10):
@@ -194,7 +197,7 @@ def side(player, allbuttons):
         label3 = Label(root, textvariable=player2_or_AI, font=font1, fg='white', bg='midnight blue')
         label3.grid(row=11, column=15, columnspan=10)
  
- 
+#создает функциональные кнопки
 def field_buttons(field, info, player, field2):
     allbuttons = []
     a = 0
@@ -202,6 +205,7 @@ def field_buttons(field, info, player, field2):
         b = 0
         buttons = []
         for j in range(10):
+            #полученые кнопки будут вызывать функцию player_shoot + если редим одного игрока деактивировать другое поле
             button = Button(root, width=3 , height=1, font=font1, bg="sky blue", activebackground="sky blue",
                             command=partial(player_shoot, a, b, field, allbuttons, info, player, field2), state="disable")
             buttons.append(button)
